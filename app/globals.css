@@ -84,6 +84,15 @@ body {
   background: #b8b8bd;
 }
 
+/* Hides the scrollbar on horizontally-scrolling nav rows while keeping scroll. */
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 /* Microinteractions — used by Modal, Drawer, Dropdown, Toast */
 @keyframes fade-in {
   from { opacity: 0; }

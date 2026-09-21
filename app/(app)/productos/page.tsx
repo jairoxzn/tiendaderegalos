@@ -38,6 +38,7 @@ interface ProductRow {
   description: string | null;
   cost: string;
   price: string;
+  compareAtPrice: string | null;
   stock: number;
   minStock: number;
   unit: string;
@@ -136,6 +137,7 @@ export default function ProductosPage() {
       description: "",
       cost: 0,
       price: 0,
+      compareAtPrice: 0,
       stock: 0,
       minStock: 0,
       unit: "UNIDAD",
@@ -155,6 +157,7 @@ export default function ProductosPage() {
       description: product.description ?? "",
       cost: Number(product.cost),
       price: Number(product.price),
+      compareAtPrice: product.compareAtPrice ? Number(product.compareAtPrice) : 0,
       stock: product.stock,
       minStock: product.minStock,
       unit: product.unit,
@@ -394,6 +397,15 @@ export default function ProductosPage() {
           />
           <Input label="Costo (S/)" type="number" step="0.01" min="0" error={errors.cost?.message} {...register("cost")} />
           <Input label="Precio de venta (S/)" type="number" step="0.01" min="0" error={errors.price?.message} {...register("price")} />
+          <Input
+            label="Precio anterior / oferta (S/)"
+            type="number"
+            step="0.01"
+            min="0"
+            hint="Opcional. Si es mayor al precio de venta, se muestra tachado con descuento en el catálogo."
+            error={errors.compareAtPrice?.message}
+            {...register("compareAtPrice")}
+          />
           {!editing && (
             <Input label="Stock inicial" type="number" min="0" error={errors.stock?.message} {...register("stock")} />
           )}

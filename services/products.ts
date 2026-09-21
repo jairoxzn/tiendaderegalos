@@ -98,6 +98,10 @@ export async function getProduct(id: string) {
   });
 }
 
+function normalizeCompareAtPrice(compareAtPrice: number, price: number): number | null {
+  return compareAtPrice > price ? compareAtPrice : null;
+}
+
 export async function createProduct(input: CreateProductInput, userId: string) {
   const slug = await uniqueSlug(input.name);
 
@@ -111,6 +115,7 @@ export async function createProduct(input: CreateProductInput, userId: string) {
         description: input.description || null,
         cost: input.cost,
         price: input.price,
+        compareAtPrice: normalizeCompareAtPrice(input.compareAtPrice, input.price),
         stock: input.stock,
         minStock: input.minStock,
         unit: input.unit,
@@ -156,6 +161,7 @@ export async function updateProduct(id: string, input: UpdateProductInput) {
         description: input.description || null,
         cost: input.cost,
         price: input.price,
+        compareAtPrice: normalizeCompareAtPrice(input.compareAtPrice, input.price),
         minStock: input.minStock,
         unit: input.unit,
         isCustomizable: input.isCustomizable,

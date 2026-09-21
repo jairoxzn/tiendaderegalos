@@ -9,6 +9,7 @@ export const createProductSchema = z.object({
   description: z.string().max(500).optional().or(z.literal("")),
   cost: z.coerce.number().min(0, "El costo no puede ser negativo"),
   price: z.coerce.number().min(0.01, "El precio debe ser mayor a 0"),
+  compareAtPrice: z.coerce.number().min(0).default(0),
   stock: z.coerce.number().int().min(0, "El stock no puede ser negativo"),
   minStock: z.coerce.number().int().min(0, "El stock mínimo no puede ser negativo"),
   unit: z.string().min(1).max(20),
