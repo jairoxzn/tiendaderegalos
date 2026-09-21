@@ -253,7 +253,7 @@ export default function PedidosPage() {
             <p className="mb-2 text-[13px] font-medium text-text-primary">Productos</p>
             <div className="space-y-2">
               {fields.map((field, index) => (
-                <div key={field.id} className="flex items-end gap-2">
+                <div key={field.id} className="flex flex-wrap items-end gap-2">
                   <Select
                     options={[
                       { value: "", label: "Personalizado / otro" },
@@ -268,14 +268,14 @@ export default function PedidosPage() {
                         setValue(`items.${index}.price`, Number(product.price));
                       }
                     }}
-                    className="flex-[2]"
+                    className="min-w-[160px] flex-1"
                   />
-                  <Input placeholder="Nombre" className="flex-[2]" {...register(`items.${index}.name`)} />
+                  <Input placeholder="Nombre" className="min-w-[140px] flex-1" {...register(`items.${index}.name`)} />
                   <Input
                     type="number"
                     min="1"
                     placeholder="Cant."
-                    className="w-20"
+                    className="w-20 shrink-0"
                     {...register(`items.${index}.quantity`, { valueAsNumber: true })}
                   />
                   <Input
@@ -283,13 +283,13 @@ export default function PedidosPage() {
                     step="0.01"
                     min="0"
                     placeholder="Precio"
-                    className="w-28"
+                    className="w-28 shrink-0"
                     {...register(`items.${index}.price`, { valueAsNumber: true })}
                   />
                   <Button
                     variant="icon"
                     size="iconMd"
-                    className="hover:text-danger"
+                    className="shrink-0 hover:text-danger"
                     onClick={() => remove(index)}
                     disabled={fields.length === 1}
                     aria-label="Quitar"

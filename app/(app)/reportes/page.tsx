@@ -115,7 +115,7 @@ interface SalesReport {
 function SalesReportView({ data }: { data: SalesReport }) {
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-2">
+      <div className="grid grid-cols-2 gap-4">
         <Card><CardContent className="pt-6"><p className="text-[12px] text-text-secondary">Ingresos totales</p><p className="mt-1 text-[22px] font-semibold text-text-primary">{formatCurrency(data.totalRevenue)}</p></CardContent></Card>
         <Card><CardContent className="pt-6"><p className="text-[12px] text-text-secondary">Ventas totales</p><p className="mt-1 text-[22px] font-semibold text-text-primary">{data.totalCount}</p></CardContent></Card>
       </div>
@@ -240,7 +240,7 @@ interface OrdersReport {
 function OrdersReportView({ data }: { data: OrdersReport }) {
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         <Card><CardContent className="pt-6"><p className="text-[12px] text-text-secondary">Pendientes</p><p className="mt-1 text-[22px] font-semibold text-warning">{data.counts.pendientes}</p></CardContent></Card>
         <Card><CardContent className="pt-6"><p className="text-[12px] text-text-secondary">Entregados</p><p className="mt-1 text-[22px] font-semibold text-success">{data.counts.entregados}</p></CardContent></Card>
         <Card><CardContent className="pt-6"><p className="text-[12px] text-text-secondary">Cancelados</p><p className="mt-1 text-[22px] font-semibold text-danger">{data.counts.cancelados}</p></CardContent></Card>
@@ -279,7 +279,7 @@ interface CashReport {
 function CashReportView({ data }: { data: CashReport }) {
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
         <Card><CardContent className="pt-6"><p className="text-[12px] text-text-secondary">Ingresos por venta</p><p className="mt-1 text-[18px] font-semibold text-success">{formatCurrency(data.summary.ingresosPorVenta)}</p></CardContent></Card>
         <Card><CardContent className="pt-6"><p className="text-[12px] text-text-secondary">Otros ingresos</p><p className="mt-1 text-[18px] font-semibold text-text-primary">{formatCurrency(data.summary.otrosIngresos)}</p></CardContent></Card>
         <Card><CardContent className="pt-6"><p className="text-[12px] text-text-secondary">Gastos y retiros</p><p className="mt-1 text-[18px] font-semibold text-danger">{formatCurrency(data.summary.gastos + data.summary.retiros)}</p></CardContent></Card>

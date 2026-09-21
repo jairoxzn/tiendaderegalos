@@ -190,7 +190,7 @@ export default function PosPage() {
   }
 
   return (
-    <div className="flex h-full flex-col lg:flex-row">
+    <div className="flex h-full flex-col md:flex-row">
       <div className="flex-1 overflow-y-auto p-6">
         <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center">
           <SearchInput
@@ -261,7 +261,7 @@ export default function PosPage() {
         )}
       </div>
 
-      <div className="flex w-full shrink-0 flex-col border-t border-border bg-surface lg:h-full lg:w-[380px] lg:border-l lg:border-t-0">
+      <div className="flex w-full shrink-0 flex-col border-t border-border bg-surface md:h-full md:w-[320px] md:border-l md:border-t-0 lg:w-[380px]">
         <div className="border-b border-border p-4">
           <p className="mb-2 text-[12px] font-medium uppercase tracking-wide text-text-secondary">Cliente</p>
           {customer ? (

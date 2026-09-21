@@ -47,7 +47,7 @@ export function TabsList({ className, ...props }: React.HTMLAttributes<HTMLDivEl
   return (
     <div
       className={cn(
-        "inline-flex items-center gap-1 rounded-[14px] bg-bg p-1",
+        "inline-flex max-w-full items-center gap-1 overflow-x-auto rounded-[14px] bg-bg p-1",
         className,
       )}
       {...props}
@@ -72,7 +72,7 @@ export function TabsTrigger({
       type="button"
       onClick={() => setValue(value)}
       className={cn(
-        "rounded-[11px] px-3.5 py-1.5 text-[13px] font-medium transition-all",
+        "shrink-0 rounded-[11px] px-3.5 py-1.5 text-[13px] font-medium transition-all",
         isActive
           ? "bg-surface text-text-primary shadow-[var(--shadow-soft)]"
           : "text-text-secondary hover:text-text-primary",

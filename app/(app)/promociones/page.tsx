@@ -188,15 +188,15 @@ export default function PromocionesPage() {
             <p className="mb-2 text-[13px] font-medium text-text-primary">Productos incluidos</p>
             <div className="space-y-2">
               {fields.map((field, index) => (
-                <div key={field.id} className="flex items-end gap-2">
+                <div key={field.id} className="flex flex-wrap items-end gap-2">
                   <Select
                     options={products.map((p) => ({ value: p.id, label: p.name }))}
                     placeholder="Producto"
-                    className="flex-1"
+                    className="min-w-[180px] flex-1"
                     {...register(`items.${index}.productId`)}
                   />
-                  <Input type="number" min="1" placeholder="Cant." className="w-20" {...register(`items.${index}.quantity`, { valueAsNumber: true })} />
-                  <Button variant="icon" size="iconMd" className="hover:text-danger" onClick={() => remove(index)} disabled={fields.length === 1} aria-label="Quitar">
+                  <Input type="number" min="1" placeholder="Cant." className="w-20 shrink-0" {...register(`items.${index}.quantity`, { valueAsNumber: true })} />
+                  <Button variant="icon" size="iconMd" className="shrink-0 hover:text-danger" onClick={() => remove(index)} disabled={fields.length === 1} aria-label="Quitar">
                     <Trash2 className="size-4" />
                   </Button>
                 </div>

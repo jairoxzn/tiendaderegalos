@@ -137,13 +137,13 @@ export function CheckoutModal({
         ) : (
           <div className="flex flex-col gap-3">
             {rows.map((row, index) => (
-              <div key={index} className="flex items-end gap-2">
+              <div key={index} className="flex flex-wrap items-end gap-2">
                 <Select
                   label={index === 0 ? "Método" : undefined}
                   options={methodOptions}
                   value={row.method}
                   onChange={(e) => updateRow(index, { method: e.target.value as PaymentMethod })}
-                  className="flex-1"
+                  className="min-w-[140px] flex-1"
                 />
                 <Input
                   label={index === 0 ? "Monto (S/)" : undefined}
@@ -152,13 +152,13 @@ export function CheckoutModal({
                   min="0"
                   value={row.amount}
                   onChange={(e) => updateRow(index, { amount: Number(e.target.value) })}
-                  className="w-32"
+                  className="w-28 shrink-0"
                 />
                 {rows.length > 1 && (
                   <Button
                     variant="icon"
                     size="iconMd"
-                    className="hover:text-danger"
+                    className="shrink-0 hover:text-danger"
                     onClick={() => setRows((prev) => prev.filter((_, i) => i !== index))}
                     aria-label="Quitar"
                   >

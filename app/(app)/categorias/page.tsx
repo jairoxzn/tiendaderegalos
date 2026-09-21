@@ -87,7 +87,7 @@ export default function CategoriasPage() {
 
   return (
     <div className="p-6 sm:p-8">
-      <div className="mb-6 flex items-center justify-between gap-4">
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="text-[28px] font-semibold tracking-tight text-text-primary">Categorías</h1>
           <p className="text-[13px] text-text-secondary">Organiza tu catálogo de productos.</p>

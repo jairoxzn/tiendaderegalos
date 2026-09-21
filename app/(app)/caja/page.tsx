@@ -186,7 +186,7 @@ export default function CajaPage() {
         />
       ) : (
         <>
-          <div className="mb-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
+          <div className="mb-6 grid grid-cols-2 gap-4 md:grid-cols-4">
             <Card>
               <CardContent className="pt-6">
                 <p className="text-[12px] text-text-secondary">Monto inicial</p>

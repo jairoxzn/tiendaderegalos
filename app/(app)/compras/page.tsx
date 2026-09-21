@@ -179,7 +179,7 @@ export default function ComprasPage() {
             <p className="mb-2 text-[13px] font-medium text-text-primary">Productos</p>
             <div className="space-y-2">
               {fields.map((field, index) => (
-                <div key={field.id} className="flex items-end gap-2">
+                <div key={field.id} className="flex flex-wrap items-end gap-2">
                   <Select
                     options={products.map((p) => ({ value: p.id, label: p.name }))}
                     placeholder="Producto"
@@ -189,13 +189,13 @@ export default function ComprasPage() {
                       setValue(`items.${index}.productId`, e.target.value);
                       if (product) setValue(`items.${index}.cost`, Number(product.cost));
                     }}
-                    className="flex-[2]"
+                    className="min-w-[180px] flex-1"
                   />
                   <Input
                     type="number"
                     min="1"
                     placeholder="Cant."
-                    className="w-24"
+                    className="w-24 shrink-0"
                     {...register(`items.${index}.quantity`, { valueAsNumber: true })}
                   />
                   <Input
@@ -203,13 +203,13 @@ export default function ComprasPage() {
                     step="0.01"
                     min="0"
                     placeholder="Costo unit."
-                    className="w-28"
+                    className="w-28 shrink-0"
                     {...register(`items.${index}.cost`, { valueAsNumber: true })}
                   />
                   <Button
                     variant="icon"
                     size="iconMd"
-                    className="hover:text-danger"
+                    className="shrink-0 hover:text-danger"
                     onClick={() => remove(index)}
                     disabled={fields.length === 1}
                     aria-label="Quitar"
