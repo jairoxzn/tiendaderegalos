@@ -11,7 +11,7 @@ const ADMIN_ONLY_PREFIXES = [
   "/promociones",
 ];
 
-const PUBLIC_PREFIXES = ["/catalogo", "/login"];
+const PUBLIC_PREFIXES = ["/tienda", "/login"];
 
 /**
  * Edge-safe auth config (no Prisma/bcrypt here) — shared by middleware and

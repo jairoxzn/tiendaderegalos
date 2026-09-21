@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
-import { headers } from "next/headers";
 import { MessageCircle, Gift } from "lucide-react";
 import { getCatalogData } from "@/services/catalog";
 import { formatCurrency } from "@/lib/currency";
 import { ProductImage } from "@/components/product/ProductImage";
-import { ShareCatalogPanel } from "@/features/catalog/ShareCatalogPanel";
-import { auth } from "@/lib/auth";
 
 export const metadata: Metadata = {
   title: "Catálogo — GiftFlow",
@@ -17,22 +14,12 @@ function whatsappLink(whatsapp: string | null | undefined, productName: string) 
   return `https://wa.me/${number}?text=${text}`;
 }
 
-export default async function CatalogoPage() {
-  const [{ settings, categories }, session, headersList] = await Promise.all([
-    getCatalogData(),
-    auth(),
-    headers(),
-  ]);
+export default async function TiendaPage() {
+  const { settings, categories } = await getCatalogData();
   const storeName = settings?.storeName || "GiftFlow";
-
-  const host = headersList.get("host") ?? "localhost:3000";
-  const protocol = host.startsWith("localhost") || host.startsWith("127.0.0.1") ? "http" : "https";
-  const catalogUrl = `${protocol}://${host}/catalogo`;
 
   return (
     <div className="min-h-dvh bg-bg">
-      {session?.user && <ShareCatalogPanel url={catalogUrl} storeName={storeName} />}
-
       <header className="sticky top-0 z-30 border-b border-border bg-surface/90 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center gap-3 px-5 py-4">
           <div className="flex size-10 shrink-0 items-center justify-center rounded-[12px] bg-accent text-white">
