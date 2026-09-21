@@ -1,0 +1,132 @@
+@import "tailwindcss";
+
+:root {
+  --color-bg: #f5f5f7;
+  --color-surface: #ffffff;
+  --color-text-primary: #1d1d1f;
+  --color-text-secondary: #6e6e73;
+  --color-border: #e5e5e7;
+  --color-accent: #ff375f;
+  --color-accent-hover: #e62e53;
+  --color-accent-soft: #ffe5eb;
+
+  --color-success: #34c759;
+  --color-success-soft: #e3f8e9;
+  --color-warning: #ff9f0a;
+  --color-warning-soft: #fff2e0;
+  --color-danger: #ff3b30;
+  --color-danger-soft: #ffe5e3;
+  --color-info: #0a84ff;
+  --color-info-soft: #e3f1ff;
+}
+
+@theme inline {
+  --color-bg: var(--color-bg);
+  --color-surface: var(--color-surface);
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-border: var(--color-border);
+  --color-accent: var(--color-accent);
+  --color-accent-hover: var(--color-accent-hover);
+  --color-accent-soft: var(--color-accent-soft);
+  --color-success: var(--color-success);
+  --color-success-soft: var(--color-success-soft);
+  --color-warning: var(--color-warning);
+  --color-warning-soft: var(--color-warning-soft);
+  --color-danger: var(--color-danger);
+  --color-danger-soft: var(--color-danger-soft);
+  --color-info: var(--color-info);
+  --color-info-soft: var(--color-info-soft);
+
+  --font-sans: var(--font-inter);
+
+  --radius-card: 18px;
+  --radius-control: 12px;
+
+  --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px -12px rgba(0, 0, 0, 0.08);
+  --shadow-elevated: 0 4px 12px rgba(0, 0, 0, 0.06), 0 16px 40px -16px rgba(0, 0, 0, 0.14);
+}
+
+* {
+  border-color: var(--color-border);
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-feature-settings: "cv11", "ss01";
+}
+
+::selection {
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+
+/* Minimal scrollbar for a premium feel */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #d2d2d7;
+  border-radius: 999px;
+  border: 2px solid var(--color-bg);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #b8b8bd;
+}
+
+/* Microinteractions — used by Modal, Drawer, Dropdown, Toast */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.96) translateY(4px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes slide-in-right {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+@keyframes slide-in-left {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+@keyframes slide-in-bottom {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 150ms ease-out both;
+}
+.animate-scale-in {
+  animation: scale-in 150ms ease-out both;
+}
+.animate-slide-in-right {
+  animation: slide-in-right 220ms cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+.animate-slide-in-left {
+  animation: slide-in-left 220ms cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+.animate-slide-in-bottom {
+  animation: slide-in-bottom 180ms ease-out both;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+  }
+}
