@@ -55,6 +55,7 @@ cp .env.example .env
 | `DATABASE_URL_UNPOOLED` | Cadena de conexión directa (usada por Prisma Migrate) |
 | `AUTH_SECRET` | Secreto para firmar sesiones. Generar con: `node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"` |
 | `NEXTAUTH_URL` | URL base de la app (`http://localhost:3000` en desarrollo) |
+| `BLOB_READ_WRITE_TOKEN` | Token de Vercel Blob Storage (Storage → Blob en el dashboard de Vercel) para subir imágenes de productos, logo y pedidos personalizados. En Vercel se inyecta automáticamente al conectar el Blob store; en local hay que copiarlo a mano. |
 | `NEXT_PUBLIC_WHATSAPP_NUMBER` | Número de WhatsApp usado en el catálogo público |
 | `NEXT_PUBLIC_STORE_NAME` | Nombre de la tienda mostrado por defecto |
 
@@ -97,7 +98,7 @@ npm run start
 
 - **Autenticación y roles** — Login, logout, sesión JWT, protección de rutas y de API por rol (`ADMIN` / `VENDEDOR`).
 - **Dashboard** — KPIs en tiempo real, gráfico de ventas de 7 días, productos más vendidos, ventas y pedidos recientes, alertas de stock bajo.
-- **Productos y Categorías** — CRUD completo, subida de imágenes (disco local en `public/uploads`), vista grid/tabla, activar/desactivar.
+- **Productos y Categorías** — CRUD completo, subida de imágenes (Vercel Blob Storage), vista grid/tabla, activar/desactivar.
 - **Inventario** — Stock actual con alertas, ajustes manuales (entrada/salida, daño, pérdida, devolución) con historial de movimientos.
 - **POS** — Carrito, búsqueda y filtro por categoría, clientes, descuentos, pago único o mixto (efectivo/Yape/Plin/tarjeta/transferencia), actualización automática de stock.
 - **Caja** — Apertura, movimientos (ingresos/gastos/retiros), cierre con cálculo de diferencia esperado vs. contado. Solo el monto en efectivo de una venta afecta el arqueo físico.

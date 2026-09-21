@@ -5,7 +5,9 @@ import { getBusinessSettings, updateBusinessSettings } from "@/services/settings
 
 export async function GET() {
   try {
-    await requireSession(["ADMIN"]);
+    // Any signed-in staff can read the store name/logo (needed for receipts,
+    // the catalog dashboard, etc.) — only editing settings is admin-only.
+    await requireSession();
     const settings = await getBusinessSettings();
     return NextResponse.json(settings);
   } catch (error) {

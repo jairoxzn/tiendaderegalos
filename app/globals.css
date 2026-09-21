@@ -130,3 +130,21 @@ body {
     background: #fff;
   }
 }
+
+/* Scoped single-element printing for the sales receipt (POS). Toggled via
+   the "printing-receipt" class on <body> right before window.print(). */
+@media print {
+  body.printing-receipt * {
+    visibility: hidden;
+  }
+  body.printing-receipt .print-receipt,
+  body.printing-receipt .print-receipt * {
+    visibility: visible;
+  }
+  body.printing-receipt .print-receipt {
+    position: fixed;
+    inset: 0;
+    max-width: none;
+    padding: 12px;
+  }
+}

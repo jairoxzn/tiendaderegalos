@@ -5,6 +5,7 @@ import { Minus, Plus, ShoppingCart, Trash2, User, Wallet, X } from "lucide-react
 import { useCart } from "@/hooks/useCart";
 import { apiRequest } from "@/hooks/useCrudList";
 import { useToast } from "@/components/ui/Toast";
+import { useCurrentUser } from "@/components/layout/UserContext";
 import { Button } from "@/components/ui/Button";
 import { SearchInput } from "@/components/ui/Input";
 import { EmptyState } from "@/components/ui/EmptyState";
@@ -12,6 +13,8 @@ import { SkeletonProductGrid } from "@/components/ui/Skeleton";
 import { ProductCard, ProductGrid } from "@/components/product/ProductCard";
 import { ProductImage } from "@/components/product/ProductImage";
 import { CheckoutModal } from "@/features/pos/CheckoutModal";
+import { ReceiptModal } from "@/features/pos/ReceiptModal";
+import type { ReceiptData } from "@/features/pos/Receipt";
 import { formatCurrency } from "@/lib/currency";
 import { cn } from "@/lib/utils";
 
@@ -53,15 +56,25 @@ export default function PosPage() {
 
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [receiptData, setReceiptData] = useState<ReceiptData | null>(null);
+  const [storeName, setStoreName] = useState("GiftFlow");
 
   const toast = useToast();
   const cart = useCart();
+  const currentUser = useCurrentUser();
 
   useEffect(() => {
     fetch("/api/caja")
       .then((res) => res.json())
       .then((data) => setRegisterOpen(!!data))
       .finally(() => setRegisterLoading(false));
+  }, []);
+
+  useEffect(() => {
+    fetch("/api/configuracion")
+      .then((res) => res.json())
+      .then((data) => setStoreName(data.storeName || "GiftFlow"))
+      .catch(() => {});
   }, []);
 
   useEffect(() => {
@@ -96,7 +109,16 @@ export default function PosPage() {
 
   const handleConfirmSale = async (payments: { method: string; amount: number }[]) => {
     setSubmitting(true);
-    const { data, error } = await apiRequest<{ code: string }>("/api/ventas", {
+    const { data, error } = await apiRequest<{
+      code: string;
+      createdAt: string;
+      subtotal: string;
+      discount: string;
+      total: string;
+      items: { quantity: number; price: string; total: string; product: { name: string } }[];
+      payments: { method: string; amount: string }[];
+      customer: { name: string } | null;
+    }>("/api/ventas", {
       method: "POST",
       body: JSON.stringify({
         customerId: customer?.id ?? null,
@@ -112,7 +134,26 @@ export default function PosPage() {
       return;
     }
 
-    toast({ variant: "success", title: "Venta registrada", description: `Comprobante ${data?.code}` });
+    if (data) {
+      setReceiptData({
+        storeName,
+        code: data.code,
+        createdAt: data.createdAt,
+        cashierName: currentUser.name,
+        customerName: data.customer?.name,
+        items: data.items.map((item) => ({
+          quantity: item.quantity,
+          name: item.product.name,
+          price: Number(item.price),
+          total: Number(item.total),
+        })),
+        subtotal: Number(data.subtotal),
+        discount: Number(data.discount),
+        total: Number(data.total),
+        payments: data.payments.map((p) => ({ method: p.method, amount: Number(p.amount) })),
+      });
+    }
+
     cart.clear();
     setCustomer(null);
     setCustomerQuery("");
@@ -349,6 +390,8 @@ export default function PosPage() {
         loading={submitting}
         onConfirm={handleConfirmSale}
       />
+
+      <ReceiptModal open={!!receiptData} onClose={() => setReceiptData(null)} data={receiptData} />
     </div>
   );
 }

@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-import { mkdir, writeFile } from "fs/promises";
-import path from "path";
+import { put } from "@vercel/blob";
 import { randomUUID } from "crypto";
 import { requireSession, apiErrorResponse } from "@/lib/api-auth";
 
@@ -28,14 +27,15 @@ export async function POST(request: Request) {
     }
 
     const extension = file.name.split(".").pop()?.toLowerCase() || "jpg";
-    const filename = `${randomUUID()}.${extension}`;
-    const uploadsDir = path.join(process.cwd(), "public", "uploads");
-    await mkdir(uploadsDir, { recursive: true });
+    const filename = `uploads/${randomUUID()}.${extension}`;
 
-    const buffer = Buffer.from(await file.arrayBuffer());
-    await writeFile(path.join(uploadsDir, filename), buffer);
+    const blob = await put(filename, file, {
+      access: "public",
+      contentType: file.type,
+      addRandomSuffix: false,
+    });
 
-    return NextResponse.json({ url: `/uploads/${filename}` });
+    return NextResponse.json({ url: blob.url });
   } catch (error) {
     return apiErrorResponse(error);
   }
